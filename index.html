@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shahriyor | Тамос</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --bg: #0a0a0f;
+  --card: #111118;
+  --border: rgba(255,255,255,0.07);
+  --text: #f0f0f5;
+  --muted: #666680;
+  --accent: #7c6af7;
+  --accent2: #f76ab0;
+  --glow: rgba(124,106,247,0.25);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Ambient background orbs */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+body::before {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(124,106,247,0.18) 0%, transparent 70%);
+  top: -100px; left: -100px;
+  animation: orb1 8s ease-in-out infinite alternate;
+}
+body::after {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(247,106,176,0.13) 0%, transparent 70%);
+  bottom: -80px; right: -80px;
+  animation: orb2 10s ease-in-out infinite alternate;
+}
+
+@keyframes orb1 { 0%{transform:translate(0,0)} 100%{transform:translate(60px,80px)} }
+@keyframes orb2 { 0%{transform:translate(0,0)} 100%{transform:translate(-60px,-50px)} }
+
+.card {
+  position: relative;
+  z-index: 1;
+  width: 360px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 40px 32px 32px;
+  text-align: center;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 40px 80px rgba(0,0,0,0.6), 0 0 60px var(--glow);
+  animation: cardIn 0.7s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes cardIn {
+  0% { opacity:0; transform: translateY(30px) scale(0.96); }
+  100% { opacity:1; transform: translateY(0) scale(1); }
+}
+
+/* Top accent line */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+  border-radius: 100%;
+}
+
+.avatar-wrap {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 20px;
+}
+
+.avatar {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-size: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent));
+  z-index: 0;
+  animation: spin 4s linear infinite;
+  opacity: 0.6;
+}
+.avatar-ring::after {
+  content:'';
+  position:absolute;
+  inset:3px;
+  border-radius:50%;
+  background: var(--card);
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+  animation: fadeUp 0.6s 0.2s both;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
+  animation: fadeUp 0.6s 0.3s both;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(124,106,247,0.12);
+  border: 1px solid rgba(124,106,247,0.25);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s 0.35s both;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  transition: all 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.22s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.btn:hover::before { opacity: 1; }
+
+.btn .left { display: flex; align-items: center; gap: 12px; }
+.btn .icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.btn .arrow {
+  color: var(--muted);
+  font-size: 12px;
+  transition: transform 0.2s;
+}
+.btn:hover .arrow { transform: translateX(3px); color: var(--text); }
+
+/* Phone */
+.btn-phone .icon { background: rgba(59,130,246,0.15); color: #60a5fa; }
+.btn-phone:hover { background: rgba(59,130,246,0.07); }
+.btn-phone::before { background: linear-gradient(90deg, rgba(59,130,246,0.05), transparent); }
+
+/* WhatsApp */
+.btn-wa .icon { background: rgba(37,211,102,0.12); color: #4ade80; }
+.btn-wa:hover { background: rgba(37,211,102,0.06); }
+.btn-wa::before { background: linear-gradient(90deg, rgba(37,211,102,0.05), transparent); }
+
+/* Telegram */
+.btn-tg .icon { background: rgba(0,136,204,0.12); color: #38bdf8; }
+.btn-tg:hover { background: rgba(0,136,204,0.06); }
+.btn-tg::before { background: linear-gradient(90deg, rgba(0,136,204,0.05), transparent); }
+
+/* Instagram */
+.btn-ig .icon { background: rgba(245,133,41,0.12); color: #fb923c; }
+.btn-ig:hover { background: rgba(245,133,41,0.06); }
+.btn-ig::before { background: linear-gradient(90deg, rgba(245,133,41,0.05), transparent); }
+
+.footer {
+  margin-top: 28px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Syne', sans-serif;
+}
+
+/* staggered animations */
+@keyframes fadeUp {
+  0% { opacity:0; transform:translateY(12px); }
+  100% { opacity:1; transform:translateY(0); }
+}
+.btn:nth-child(1) { animation: fadeUp 0.5s 0.4s both; }
+.btn:nth-child(2) { animation: fadeUp 0.5s 0.5s both; }
+.btn:nth-child(3) { animation: fadeUp 0.5s 0.6s both; }
+.btn:nth-child(4) { animation: fadeUp 0.5s 0.7s both; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <div class="avatar">
+      <i class="fa-solid fa-user"></i>
+    </div>
+  </div>
+
+  <div class="name">Шаҳриёр Неъматов</div>
+  <div class="subtitle">Тамос бо ман</div>
+
+  <div class="badge">
+    <i class="fa-solid fa-circle" style="font-size:7px; color:#4ade80;"></i>
+    Дастрас
+  </div>
+
+  <div class="links">
+    <a class="btn btn-phone" href="tel:+992903119910">
+      <span class="left">
+        <span class="icon"><i class="fa-solid fa-phone"></i></span>
+        Телефон
+      </span>
+      <i class="fa-solid fa-arrow-right arrow"></i>
+    </a>
+
+    <a class="btn btn-wa" href="https://wa.me/992903119910">
+      <span class="left">
+        <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
+        WhatsApp
+      </span>
+      <i class="fa-solid fa-arrow-right arrow"></i>
+    </a>
+
+    <a class="btn btn-tg" href="https://t.me/+992903119910">
+      <span class="left">
+        <span class="icon"><i class="fa-brands fa-telegram"></i></span>
+        Telegram
+      </span>
+      <i class="fa-solid fa-arrow-right arrow"></i>
+    </a>
+
+    <a class="btn btn-ig" href="https://www.instagram.com/shahriyor_9493" target="_blank">
+      <span class="left">
+        <span class="icon"><i class="fa-brands fa-instagram"></i></span>
+        Instagram
+      </span>
+      <i class="fa-solid fa-arrow-right arrow"></i>
+    </a>
+  </div>
+
+  <div class="footer">© Shahriyor 2026</div>
+</div>
+
+</body>
+</html>
